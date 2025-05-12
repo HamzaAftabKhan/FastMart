@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  backend:
+    build: ./e-commerce-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./e-commerce-backend/.env
+    volumes:
+      - ./e-commerce-backend:/app
+    networks:
+      - app-network
+
+  frontend:
+    build: ./e-commerce-project
+    ports:
+      - "3000:3000" # Changed to match common development port for frontend
+    env_file:
+      - ./e-commerce-project/.env
+    volumes:
+      - ./e-commerce-project:/app
+    depends_on:
+      - backend # Ensures frontend waits for backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

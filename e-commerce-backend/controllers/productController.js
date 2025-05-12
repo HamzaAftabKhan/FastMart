@@ -3,6 +3,7 @@ const Category = require('../models/Category');
 const Brand = require('../models/Brand');
 module.exports.createProduct = async (req, res) => {
     try {
+        console.log(req.body);
       const { name, price, description, category: categoryName, stock, brand } = req.body;
       const selectedCategory = await Category.findOne({ name: categoryName });
       if (!selectedCategory) throw new Error("Category not found!");
